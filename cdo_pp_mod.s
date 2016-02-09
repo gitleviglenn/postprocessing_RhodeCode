@@ -13,6 +13,8 @@
 # apart with cdo splitlevel.  after that the desired tau levels need
 # to be summed up. 
 #
+# does git work?
+#
 # levi.silvers                                     Oct 2015
 
 echo 'good grief'
