@@ -13,7 +13,7 @@
 # apart with cdo splitlevel.  after that the desired tau levels need
 # to be summed up. 
 #
-# does git work?
+# does git work? yes it does
 #
 # levi.silvers                                     Oct 2015
 
