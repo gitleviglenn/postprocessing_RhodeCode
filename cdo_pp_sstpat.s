@@ -1,10 +1,21 @@
 #!/usr/bin/env bash
 
 # script to process data files from cosp output using cdo commands
-# object: -merge all months into one file
-#         -add all clouds within a certain vertical level
-#         -add one or more values of optical depth (tau) so that 
-#          we can plot tau > 0.3, for example
+# object: -select the radiative variables to exmine toa fluxes
+#         -compute the CRE for the total, sw, and lw fluxes
+#
+# to generate something like Fig. 4 from Andrews et al 2015 we need to compute
+# the feedback of the radiative fluxes, so we need first
+# 1. Net TOA flux
+#       need swdn_toa, swup_toa, olr
+# 2. Net CRE (clear sky net toa - total sky toa) fluxes
+#       need swup_toa_clr, olr_clr      
+# 3. olr_clr
+# 4. swup_toa_clr
+# 5. olr CRE
+# 6. swup_toa CRE
+#
+# once we have these for each experiment the feedbacks can be computed as the diff.
 #
 # levi.silvers                                     Feb 2016
 
@@ -39,8 +50,14 @@ cdo selvar,${varname3} ${filen} ${odir}atmos_${exp}_${varname3}.nc
 cdo selvar,${varname4} ${filen} ${odir}atmos_${exp}_${varname4}.nc
 ls -ltr
 
+# TOA radiative fluxes: 
+cdo sub ${odir}atmos_${exp}_${varname1}.nc ${odir}atmos_${exp}_${varname2}.nc ${odir}atmos_${exp}_toatemp.nc
+cdo sub ${odir}atmos_${exp}_toatemp.nc ${odir}atmos_${exp}_${varname}.nc ${odir}atmos_${exp}_toaflux.nc
 
+rm ${odir}atmos_${exp}_toatemp.nc
 
-echo 'changing back to /archive/Levi.Silvers/tempdir'
-cd /archive/Levi.Silvers/tempdir
+# compute CRE
+cdo sub ${odir}atmos_${exp}_${varname4}.nc ${odir}atmos_${exp}_${varname2}.nc ${odir}atmos_${exp}_olr_CRE.nc
+cdo sub ${odir}atmos_${exp}_${varname3}.nc ${odir}atmos_${exp}_${varname}.nc ${odir}atmos_${exp}_sw_CRE.nc
 
+echo 'finished'
