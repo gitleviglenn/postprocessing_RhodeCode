@@ -22,7 +22,7 @@
 echo 'good grief'
 
 # set up var names
-exp='c96L32_am4g7_1860climo_ctlp4k_t4'
+exp='c96L32_am4g7_1860climo_ctl_t4'
 bdir='/archive/Levi.Silvers/awg/ulm_201505_cosp14/'$exp'/gfdl.ncrc2-intel-prod-openmp/pp/atmos/av/annual_5yr/'
 odir='/archive/Levi.Silvers/tempdir/'
 filen='atmos.0002-0006.ann.nc'
@@ -43,6 +43,7 @@ varname4='olr_clr'
 
 cdo infov ${filen}> output
 
+echo 'selecting variables'
 cdo selvar,${varname} ${filen} ${odir}atmos_${exp}_${varname}.nc
 cdo selvar,${varname1} ${filen} ${odir}atmos_${exp}_${varname1}.nc
 cdo selvar,${varname2} ${filen} ${odir}atmos_${exp}_${varname2}.nc
@@ -50,14 +51,21 @@ cdo selvar,${varname3} ${filen} ${odir}atmos_${exp}_${varname3}.nc
 cdo selvar,${varname4} ${filen} ${odir}atmos_${exp}_${varname4}.nc
 ls -ltr
 
+echo 'computing toa radiative fluxes'
 # TOA radiative fluxes: 
 cdo sub ${odir}atmos_${exp}_${varname1}.nc ${odir}atmos_${exp}_${varname2}.nc ${odir}atmos_${exp}_toatemp.nc
 cdo sub ${odir}atmos_${exp}_toatemp.nc ${odir}atmos_${exp}_${varname}.nc ${odir}atmos_${exp}_toaflux.nc
+# and clear sky toa 
+cdo sub ${odir}atmos_${exp}_${varname1}.nc ${odir}atmos_${exp}_${varname4}.nc ${odir}atmos_${exp}_toatemp_clr.nc
+cdo sub ${odir}atmos_${exp}_toatemp_clr.nc ${odir}atmos_${exp}_${varname3}.nc ${odir}atmos_${exp}_toaflux_clr.nc
 
 rm ${odir}atmos_${exp}_toatemp.nc
+rm ${odir}atmos_${exp}_toatemp_clr.nc
 
 # compute CRE
+echo 'computing CRE'
 cdo sub ${odir}atmos_${exp}_${varname4}.nc ${odir}atmos_${exp}_${varname2}.nc ${odir}atmos_${exp}_olr_CRE.nc
 cdo sub ${odir}atmos_${exp}_${varname3}.nc ${odir}atmos_${exp}_${varname}.nc ${odir}atmos_${exp}_sw_CRE.nc
+cdo sub ${odir}atmos_${exp}_toaflux_clr.nc ${odir}atmos_${exp}_toaflux.nc ${odir}atmos_${exp}_toaflux_CRE.nc
 
 echo 'finished'
