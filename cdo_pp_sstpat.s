@@ -22,10 +22,11 @@
 echo 'good grief'
 
 # set up var names
-exp='c96L32_am4g7_1860climo_ctl_t4'
-bdir='/archive/Levi.Silvers/awg/ulm_201505_cosp14/'$exp'/gfdl.ncrc2-intel-prod-openmp/pp/atmos/av/annual_5yr/'
+exp='c96L32_am4g9_1860climo_ctlpreg'
+#bdir='/archive/Levi.Silvers/awg/ulm_201505_cosp14/'$exp'/gfdl.ncrc2-intel-prod-openmp/pp/atmos/av/annual_5yr/'
+bdir='/archive/Levi.Silvers/awg/ulm_201505/'$exp'/gfdl.ncrc3-intel-prod-openmp/pp/atmos/av/annual_10yr/'
 odir='/archive/Levi.Silvers/tempdir/'
-filen='atmos.0002-0006.ann.nc'
+filen='atmos.0002-0011.ann.nc'
 echo 'base directory is' $bdir
 echo 'changing to base directory'
 cd $bdir
@@ -40,6 +41,7 @@ varname1='swdn_toa'
 varname2='olr'
 varname3='swup_toa_clr'
 varname4='olr_clr'
+varname5='t_surf'
 
 cdo infov ${filen}> output
 
@@ -49,6 +51,7 @@ cdo selvar,${varname1} ${filen} ${odir}atmos_${exp}_${varname1}.nc
 cdo selvar,${varname2} ${filen} ${odir}atmos_${exp}_${varname2}.nc
 cdo selvar,${varname3} ${filen} ${odir}atmos_${exp}_${varname3}.nc
 cdo selvar,${varname4} ${filen} ${odir}atmos_${exp}_${varname4}.nc
+cdo selvar,${varname5} ${filen} ${odir}atmos_${exp}_${varname5}.nc
 ls -ltr
 
 echo 'computing toa radiative fluxes'
