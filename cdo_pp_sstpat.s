@@ -22,12 +22,13 @@
 echo 'good grief'
 
 # set up var names
-exp='c96L32_am4g9_1860climo_ctlpreg'
+exp='c96L32_am4g9_1860climo_ctl_p4k'
 #bdir='/archive/Levi.Silvers/awg/ulm_201505_cosp14/'$exp'/gfdl.ncrc2-intel-prod-openmp/pp/atmos/av/annual_5yr/'
 bdir='/archive/Levi.Silvers/awg/ulm_201505/'$exp'/gfdl.ncrc3-intel-prod-openmp/pp/atmos/av/annual_10yr/'
-odir='/archive/Levi.Silvers/tempdir/'
+odir='/archive/Levi.Silvers/sstpatt/'
 filen='atmos.0002-0011.ann.nc'
 echo 'base directory is' $bdir
+echo 'output directory is' $odir
 echo 'changing to base directory'
 cd $bdir
 pwd 
