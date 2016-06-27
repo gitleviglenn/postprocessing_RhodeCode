@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # script to process data files from cosp output using cdo commands
 # object: -merge all months into one file
 #         -add all clouds within a certain vertical level
@@ -13,6 +12,9 @@
 # apart with cdo splitlevel.  after that the desired tau levels need
 # to be summed up. 
 #
+# this can be used together with the ncl script glb_cc.ncl to produce 
+# figures
+# 
 # does git work? yes it does
 #
 # levi.silvers                                     Oct 2015
