@@ -21,21 +21,25 @@
 
 echo 'good grief'
 #cdo infov atmos_month_misr.0002-0006.08.nc 
-echo 'file1 is' atmos_month_misr.0002-0006.01.nc
+#echo 'file1 is' atmos_month_misr.0002-0006.01.nc
 
 # set up var names
 bname='atmos_month_misr'
-exp='am4g7'
-bdir='/archive/Levi.Silvers/awg/ulm_201505_cosp14/c96L32_'$exp'_2000climo_cosp/gfdl.ncrc2-intel-prod-openmp/pp/atmos_month_misr/av/monthly_5yr/'
-wdir='/work/Levi.Silvers/moddata/misr_pp_'$exp
+exp='am4g9'
+years='.0002-0011'
+#years='.0002-0006'
+bdir='/archive/Levi.Silvers/awg/ulm_201505/c96L32_'$exp'_2000climo_cosp_isccp/gfdl.ncrc3-intel-prod-openmp/pp/atmos_month_misr/av/monthly_10yr/'
+#bdir='/archive/Levi.Silvers/awg/ulm_201505_cosp14/c96L32_'$exp'_2000climo_cosp/gfdl.ncrc2-intel-prod-openmp/pp/atmos_month_misr/av/monthly_5yr/'
+#wdir='/work/Levi.Silvers/moddata/misr_pp_'$exp
+wdir='/work/Levi.Silvers/moddata/testgarbage'
 echo 'working directory is' $wdir
 
 cd $wdir 
 
 echo 'merging time into one file:' 
  #cdo mergetime ${bname}.0002-0006*nc ${bname}_mtime.nc
-echo 'mergetime on files' $bdir${bname}.0002-0006*nc 
- cdo mergetime $bdir${bname}.0002-0006*nc ${bname}_mtime.nc
+echo 'mergetime on files' $bdir${bname}${years}*.nc 
+ cdo mergetime $bdir${bname}${years}*nc ${bname}_mtime.nc
 
 echo 'grabbing the desired height elves'
 lev='_under3km'
