@@ -8,7 +8,7 @@ expn=c96L33_am4p0_longamip_1850rad
 #set ppd = gfdl.ncrc2-intel-prod/pp/atmos/ts/monthly/1yr
 #set ppd = /archive/ccsp/ipcc_ar4/CM2.1U_Control-1860_D4/pp/atmos/ts/monthly/5yr
 ppd=$tpath$expn/gfdl.ncrc3-intel-prod-openmp/pp/atmos/ts/monthly/5yr
-yr1=189001
+yr1=187001
 yr2=201412
 
 ls ${expn}
